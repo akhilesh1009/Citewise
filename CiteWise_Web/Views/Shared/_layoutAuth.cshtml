@@ -1,0 +1,280 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - CiteWise_Web</title>
+    <script type="importmap"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/LandingPage.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/MainApplicationNavBar.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/StudentDashboard.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Request.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/register.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/StudentViewRequests.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/flatpicker-cal.css" asp-append-version="true" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+</head>
+<body>
+
+
+    @{
+        var userRole = Context.Session.GetString("UserRole");
+        var photoUrl = Context.Session.GetString("UserPhotoUrl");
+        var firstName = Context.Session.GetString("UserName");
+        var surname = Context.Session.GetString("UserSurname");
+        string initials = "";
+
+        if (string.IsNullOrEmpty(photoUrl))
+        {
+            if (!string.IsNullOrEmpty(firstName))
+            {
+                initials += firstName[0];
+            }
+            if (!string.IsNullOrEmpty(surname))
+            {
+                initials += surname[0];
+            }
+        }
+    }
+
+    <nav class="navbar">
+        <div class="navbar-left">
+            <img src="~/img/citeWise.png" alt="CiteWise Logo" class="nav-logo" />
+            <span class="brand-name">iteWise</span>
+        </div>
+
+        <div class="navbar-center">
+            @if (userRole == "student")
+            {
+                <a asp-controller="Student" asp-action="StudentDashboard"
+                   class="nav-link @(ViewContext.RouteData.Values["action"]?.ToString() == "StudentDashboard" ? "active" : "")">
+                    Dashboard
+                </a>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link @(new[] { "StudentServiceRequest", "ViewRequests" }.Contains(ViewContext.RouteData.Values["action"]?.ToString()) ? "active" : "")">
+                        Request a Service
+                    </a>
+                    <div class="dropdown-content">
+                        <a asp-controller="Student" asp-action="StudentServiceRequest" class="dropdown-item @(ViewContext.RouteData.Values["action"]?.ToString() == "StudentServiceRequest" ? "active" : "")">
+                            Submit Request
+                        </a>
+                        <a asp-controller="Student" asp-action="ViewRequests" class="dropdown-item @(ViewContext.RouteData.Values["action"]?.ToString() == "ViewRequests" ? "active" : "")">
+                            View Requests
+                        </a>
+                    </div>
+                </div>
+
+            <a asp-controller="Student" asp-action="Resources"
+            class="nav-link @(ViewContext.RouteData.Values["action"]?.ToString() == "Resources" ? "active" : "")">
+                Resources
+            </a>
+        }
+
+            else if (userRole == "consultant")
+            {
+                <a asp-controller="consultant" asp-action="ConsultantDashboard"
+                   class="nav-link @(ViewContext.RouteData.Values["action"]?.ToString() == "ConsultantDashboard" ? "active" : "")">
+                    Dashboard
+                </a>
+
+            <a asp-controller="Consultant" asp-action="ViewRequests"
+                   class="nav-link @(ViewContext.RouteData.Values["action"]?.ToString() == "ViewRequests" ? "active" : "")">
+                MyTasks
+            </a>
+        }
+
+            else if (userRole == "admin")
+            {
+                <a asp-controller="Admin" asp-action="AdminDashboard"
+                   class="nav-link @(ViewContext.RouteData.Values["action"]?.ToString() == "AdminDashboard" ? "active" : "")">
+                    Dashboard
+                </a>
+
+                <a asp-controller="Admin" asp-action="ManageConsultants"
+                   class="nav-link @(ViewContext.RouteData.Values["action"]?.ToString() == "ManageConsultants" ? "active" : "")">
+                    Manage Consultants
+                </a>
+
+                <a asp-controller="Admin" asp-action="Resources"
+                   class="nav-link @(ViewContext.RouteData.Values["action"]?.ToString() == "Resources" ? "active" : "")">
+                    Resources
+                </a>
+            }
+        </div>
+
+
+        <div class="navbar-right">
+            <a asp-controller="Profile"
+               asp-action="@(userRole == "student" ? "Student" : userRole == "consultant" ? "Consultant" : userRole == "admin" ? "Admin" : "Student")"
+               class="nav-account">
+                <div class="account-icon">
+
+
+                    @if (!string.IsNullOrEmpty(photoUrl))
+                    {
+                        <img src="@photoUrl" alt="Profile" class="profile-pic" />
+                    }
+                    else if (!string.IsNullOrEmpty(initials))
+                    {
+                        <div class="profile-initials">@initials.ToUpper()</div>
+                    }
+                    else
+                    {
+                        <i class="fa-solid fa-user"></i>
+                    }
+                </div>
+
+                <span class="account-text">My Account</span>
+            </a>
+
+            <button class="hamburger-menu" id="hamburgerMenu" aria-label="Open menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+        </div>
+    </nav>
+
+    <div class="mobile-sidebar-overlay" id="sidebarOverlay"></div>
+    <div class="mobile-sidebar" id="mobileSidebar">
+        <div class="mobile-sidebar-header">
+            <div class="mobile-sidebar-brand">
+                <img src="~/img/citeWise.png" alt="CiteWise Logo" class="mobile-logo" />
+                <span class="mobile-brand-name">iteWise</span>
+            </div>
+            <button class="close-sidebar" id="closeSidebar" aria-label="Close menu">
+                <i class="fa-solid fa-times"></i>
+            </button>
+        </div>
+
+        <div class="mobile-sidebar-links">
+            @if (userRole == "student")
+            {
+                <a asp-controller="Student" asp-action="StudentDashboard"
+                   class="mobile-nav-link @(ViewContext.RouteData.Values["action"]?.ToString() == "StudentDashboard" ? "active" : "")">
+                    Dashboard
+                </a>
+
+                <a asp-controller="Student" asp-action="StudentServiceRequest"
+                   class="mobile-nav-link @(ViewContext.RouteData.Values["action"]?.ToString() == "StudentServiceRequest" ? "active" : "")">
+                    Submit Request
+                </a>
+
+                <a asp-controller="Student" asp-action="ViewRequests"
+                   class="mobile-nav-link @(ViewContext.RouteData.Values["action"]?.ToString() == "ViewRequests" ? "active" : "")">
+                    View Requests
+                </a>
+
+
+                <a asp-controller="Student" asp-action="Resources"
+                   class="mobile-nav-link @(ViewContext.RouteData.Values["action"]?.ToString() == "Resources" ? "active" : "")">
+                    Resources
+                </a>
+            }
+            else if (userRole == "consultant")
+            {
+                <a asp-controller="Consultant" asp-action="ConsultantDashboard"
+                   class="mobile-nav-link @(ViewContext.RouteData.Values["action"]?.ToString() == "ConsultantDashboard" ? "active" : "")">
+                    Dashboard
+                </a>
+
+                <a asp-controller="Student" asp-action="MyTasks"
+                   class="mobile-nav-link @(ViewContext.RouteData.Values["action"]?.ToString() == "MyTasks" ? "active" : "")">
+                    My Tasks
+                </a>
+            }
+            else if (userRole == "admin")
+            {
+                <a asp-controller="Admin" asp-action="AdminDashboard"
+                   class="mobile-nav-link @(ViewContext.RouteData.Values["action"]?.ToString() == "AdminDashboard" ? "active" : "")">
+                    Dashboard
+                </a>
+
+                <a asp-controller="Admin" asp-action="ManageConsultants"
+                   class="mobile-nav-link @(ViewContext.RouteData.Values["action"]?.ToString() == "ManageConsultants" ? "active" : "")">
+                    Manage Consultants
+                </a>
+
+                <a asp-controller="Admin" asp-action="Resources"
+                   class="mobile-nav-link @(ViewContext.RouteData.Values["action"]?.ToString() == "Resources" ? "active" : "")">
+                    Resources
+                </a>
+            }
+        </div>
+
+        <div class="mobile-account-section">
+            <a asp-controller="Profile"
+               asp-action="@(userRole == "student" ? "Student" : userRole == "consultant" ? "Consultant" : userRole == "admin" ? "Admin" : "Student")"
+               class="mobile-account-link">
+                <div class="mobile-account-icon">
+                    @{
+                        var photoUrl = Context.Session.GetString("UserPhotoUrl");
+                        var firstName = Context.Session.GetString("UserName");
+                        var surname = Context.Session.GetString("UserSurname");
+                        string initials = "";
+
+                        if (string.IsNullOrEmpty(photoUrl))
+                        {
+                            if (!string.IsNullOrEmpty(firstName))
+                            {
+                                initials += firstName[0];
+                            }
+                            if (!string.IsNullOrEmpty(surname))
+                            {
+                                initials += surname[0];
+                            }
+                        }
+                    }
+
+                    @if (!string.IsNullOrEmpty(photoUrl))
+                    {
+                        <img src="@photoUrl" alt="Profile" class="mobile-profile-pic" />
+                    }
+                    else if (!string.IsNullOrEmpty(initials))
+                    {
+                        <div class="mobile-profile-initials">@initials.ToUpper()</div>
+                    }
+                    else
+                    {
+                        <i class="fa-solid fa-user"></i>
+                    }
+                </div>
+
+                <span class="mobile-account-text">My Account</span>
+            </a>
+
+            <div class="account-dropdown">
+                <a asp-controller="AccountSettings" asp-action="EditProfile" class="dropdown-link">Edit Profile</a>
+                <a asp-controller="AccountSettings" asp-action="ChangePassword" class="dropdown-link">Change Password</a>
+            </div>
+
+        </div>
+
+    </div>
+    <!-- media queries stuff -->
+
+    <div class="top-divider"></div>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/ServiceRequest.js" asp-append-version="true"></script>
+    <script src="~/js/MainApplicationNavBar.js" asp-append-version="true"></script>
+    <script src="~/js/cal-flatpicker.js" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,419 @@
+﻿@model CiteWise_Web.Models.ViewModels.ConsultantDashboardViewModel
+
+@{
+    ViewData["Title"] = "Consultant Dashboard";
+    Layout = "_LayoutAuth";
+    <link rel="stylesheet" href="~/css/prioritycircles.css" />
+    var selectedPriority = (string)Context.Request.Query["priority"] ?? "All";
+
+    // --- Priority stats for circles ---
+    var assigned = Model?.Assigned ?? Enumerable.Empty<CiteWise_Web.Models.ServiceRequest.RequestItem>();
+    int totalAssigned = assigned.Count();
+
+    Func<string?, string> normalize = p => (p ?? "").Trim().ToUpperInvariant();
+
+    int highCount = assigned.Count(r =>
+        normalize(r.Priority) == "HIGH" || normalize(r.Priority) == "URGENT");
+
+    int mediumCount = assigned.Count(r =>
+        normalize(r.Priority) == "MEDIUM");
+
+    int lowCount = assigned.Count(r =>
+        normalize(r.Priority) == "LOW");
+
+    int highPct = totalAssigned > 0 ? (int)Math.Round(highCount * 100.0 / totalAssigned) : 0;
+    int mediumPct = totalAssigned > 0 ? (int)Math.Round(mediumCount * 100.0 / totalAssigned) : 0;
+    int lowPct = totalAssigned > 0 ? (int)Math.Round(lowCount * 100.0 / totalAssigned) : 0;
+
+    double highDeg = highPct * 3.6;
+    double mediumDeg = mediumPct * 3.6;
+    double lowDeg = lowPct * 3.6;
+}
+
+
+<!-- Alerts -->
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success fade show" id="alertMessage">
+        @TempData["Message"]
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger fade show" id="alertError">
+        @TempData["Error"]
+    </div>
+}
+
+
+<div class="dashboard-header">
+    <h2>Hi, @(Context.Session.GetString("UserName") ?? "Guest")</h2>
+    <br />
+    <p>Here's what's happening with your tasks today.</p>
+</div>
+
+<div class="resource-section">
+    <div class="resource-buttons">
+        <a asp-controller="Consultant" asp-action="ViewRequests" class="feature-btn">
+            <img src="~/icons/view_requests.png" alt="View all Requests" class="feature-icon" />
+            <span>View My Tasks</span>
+        </a>
+    </div>
+</div>
+
+<div class="dashboard-container">
+    <div class="consult-grid">
+
+        <!-- Assigned list card (unchanged) -->
+        <div class="dashboard-card">
+            <h3 class="dashboard-heading">
+                Assigned to me (@(Model?.Assigned?.Count() ?? 0))
+            </h3>
+
+            @if (Model?.Assigned == null || !Model.Assigned.Any())
+            {
+                <p class="text-muted">You haven’t claimed any requests yet.</p>
+            }
+            else
+            {
+                <div class="request-list">
+                    @{
+                        var sortedAssigned = Model.Assigned.OrderBy(r => r.Status == "Completed")
+                    .ThenBy(r => r.Deadline).ToList();
+                    }
+                    @foreach (var r in sortedAssigned)
+                    {
+                        <a asp-action="ServiceRequestDetails" asp-route-id="@r.Id" class="request-item-link">
+                            <div class="request-item">
+                                <div class="category-header">
+                                    @{
+                                        var displayName = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(
+                                        r.ServiceType.Replace("_", " ").ToLower()
+                                        );
+
+                                        if (displayName.Contains("Proofreading Editing"))
+                                            displayName = displayName.Replace("Proofreading Editing", "Proofreading & Editing");
+
+                                        if (displayName.Contains("Formatting Referencing"))
+                                            displayName = displayName.Replace("Formatting Referencing", "Formatting & Referencing");
+                                    }
+
+                                    <p class="category-title">@displayName</p>
+                                    <span class="priority-badge @(r.Priority?.ToLower())">@r.Priority</span>
+                                </div>
+
+                                <div class="request-content">
+                                    <div class="content-left">
+                                        <h3 class="request-title">@r.DocName</h3>
+                                        <p class="submission-date">
+                                            Submitted: @(r.CreatedAt.HasValue? r.CreatedAt.Value.ToLocalTime().ToString("dd/MM/yyyy") : "-")
+                                        </p>
+                                        <div class="request-footer">
+                                            <div class="status-group">
+                                                <span class="status-dot @(r.Status?.ToLower().Replace(" ", "-"))"></span>
+                                                <span class="status-text">@r.Status</span>
+                                            </div>
+                                            <span class="deadline-text">
+                                                Deadline: @(r.Deadline.HasValue? r.Deadline.Value.ToLocalTime().ToString("dd/MM/yyyy") : "-")
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    }
+                </div>
+            }
+        </div>
+
+        <!-- NEW: Priority circles card -->
+        <div class="dashboard-card">
+            <h3 class="dashboard-heading">My workload by priority</h3>
+
+            <div class="priority-progress-body">
+
+                <div class="priority-circles">
+
+                    <!-- HIGH -->
+                    <div class="priority-circle-wrapper">
+                        <div class="progress-circle urgent"
+                             style="--percent:@highPct;">
+                            <div class="progress-inner">
+                                <span class="progress-value">@highPct%</span>
+                            </div>
+                        </div>
+                        <div class="progress-label">High</div>
+                    </div>
+
+                    <!-- LOW -->
+                    <div class="priority-circle-wrapper">
+                        <div class="progress-circle low"
+                             style="--percent:@lowPct;">
+                            <div class="progress-inner">
+                                <span class="progress-value">@lowPct%</span>
+                            </div>
+                        </div>
+                        <div class="progress-label">Low</div>
+                    </div>
+
+                    <!-- MEDIUM -->
+                    <div class="priority-circle-wrapper">
+                        <div class="progress-circle medium"
+                             style="--percent:@mediumPct;">
+                            <div class="progress-inner">
+                                <span class="progress-value">@mediumPct%</span>
+                            </div>
+                        </div>
+                        <div class="progress-label">Medium</div>
+                    </div>
+
+                </div>
+
+                <div class="priority-legend">
+                    <div class="legend-item">
+                        <span class="legend-dot urgent"></span> High priority
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-dot low"></span> Low priority
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-dot medium"></span> Medium priority
+                    </div>
+                </div>
+
+            </div>
+
+          @*   <p class="priority-hint text-muted">
+                Percentages are based on @totalAssigned assigned request@(totalAssigned == 1 ? "" : "s").
+            </p> *@
+        </div>
+
+
+
+
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Auto-hide alerts
+        setTimeout(() => {
+            document.querySelectorAll('.alert').forEach(a => {
+                a.style.opacity = "0";
+                setTimeout(() => a.remove(), 500);
+            });
+        }, 3000);
+
+        // Disable assign button after click
+        document.querySelectorAll('.assign-form').forEach(form => {
+            form.addEventListener('submit', () => {
+                const btn = form.querySelector('button');
+                if (!btn) return;
+                btn.disabled = true;
+                btn.innerText = "Assigning...";
+            });
+        });
+
+        // Disable upload button after click
+        document.querySelectorAll('.upload-form').forEach(form => {
+            form.addEventListener('submit', () => {
+                const btn = form.querySelector('button');
+                if (!btn) return;
+                btn.disabled = true;
+                btn.innerText = "Uploading...";
+            });
+        });
+
+        // Animate priority circles
+        document.addEventListener('DOMContentLoaded', function () {
+            const circles = document.querySelectorAll('.progress-circle');
+            circles.forEach(circle => {
+                // start from 0deg then transition to target deg
+                circle.style.setProperty('--start-deg', '0deg');
+                // trigger reflow then add class so transition kicks in
+                requestAnimationFrame(() => {
+                    circle.classList.add('fill');
+                });
+            });
+        });
+    </script>
+}
+
+<style>
+    /* ===== Priority circles styles ===== */
+
+    .priority-progress-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .priority-progress-body {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 2rem;
+        margin-top: 0.75rem;
+    }
+
+    .priority-circles {
+        display: flex;
+        gap: 1.75rem;
+    }
+
+    .priority-circle-wrapper {
+        text-align: center;
+    }
+
+    .progress-circle {
+        --ring-color: #2563eb;
+        --deg: 0deg;
+        width: 92px;
+        height: 92px;
+        border-radius: 999px;
+        padding: 4px;
+        background: conic-gradient(var(--ring-color) 0deg, #e5e7eb 0deg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        box-shadow: 0 6px 16px rgba(15, 23, 42, 0.12);
+        transition: background 1.1s ease-out;
+    }
+
+        .progress-circle::before {
+            content: "";
+            position: absolute;
+            inset: 6px;
+            border-radius: 999px;
+            background: #f9fafb;
+            box-shadow: inset 0 2px 4px rgba(148, 163, 184, 0.4);
+        }
+
+        .progress-circle .progress-inner {
+            position: relative;
+            z-index: 1;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .progress-circle .progress-value {
+            color: var(--ring-color);
+        }
+
+        .progress-circle.fill {
+            background: conic-gradient(var(--ring-color) var(--deg), #e5e7eb 0deg);
+        }
+
+    .progress-label {
+        margin-top: 0.4rem;
+        font-size: 0.82rem;
+        color: #4b5563;
+        font-weight: 600;
+    }
+
+    .priority-legend {
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+        font-size: 0.8rem;
+    }
+
+    .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+        color: #4b5563;
+    }
+
+    .legend-dot {
+        width: 12px;
+        height: 6px;
+        border-radius: 999px;
+        background: #d1d5db;
+    }
+
+        .legend-dot.urgent {
+            background: #f97373;
+        }
+
+        .legend-dot.low {
+            background: #4ade80;
+        }
+
+        .legend-dot.medium {
+            background: #facc6b;
+        }
+
+    .progress-circle.urgent {
+        --ring-color: #f97373;
+    }
+
+    .progress-circle.low {
+        --ring-color: #4ade80;
+    }
+
+    .progress-circle.medium {
+        --ring-color: #facc6b;
+    }
+
+    .priority-hint {
+        margin-top: 0.75rem;
+        font-size: 0.78rem;
+    }
+
+    @@media (max-width: 900px) {
+        .priority-progress-body {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    }
+
+
+
+    .progress-circle .progress-inner {
+        position: relative;
+        z-index: 1;
+        font-weight: 700;
+        font-size: 1.1rem;
+        /* Add these lines */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+    }
+
+
+    .progress-circle {
+        --ring-color: #2563eb;
+        --deg: 0deg;
+        width: 92px;
+        height: 92px;
+        border-radius: 999px;
+        padding: 4px;
+        background: conic-gradient(var(--ring-color) 0deg, #e5e7eb 0deg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        box-shadow: 0 6px 16px rgba(15, 23, 42, 0.12);
+        transition: background 1.1s ease-out;
+    }
+
+        .progress-circle .progress-inner {
+            position: absolute; /* <-- absolute so it sits on top of the circle */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* <-- perfect center */
+            font-weight: 700;
+            font-size: 1.1rem;
+            z-index: 1;
+        }
+
+        .progress-circle .progress-value {
+            color: var(--ring-color);
+        }
+
+</style>

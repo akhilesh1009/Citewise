@@ -1,0 +1,207 @@
+﻿@model List<CiteWise_Web.Models.ServiceRequest.RequestItem>
+@using System.Linq
+
+@{
+    Layout = "_LayoutAuth";
+}
+
+<div class="dashboard-header">
+    @* <h2>Good morning, Connor</h2> *@
+    <h2>Hi, @(Context.Session.GetString("UserName") ?? "Guest")</h2>
+    <br />
+    <p>Here's what's happening with your assignments today.</p>
+</div>
+
+<div class="feature-section">
+    <div class="feature-buttons">
+        <a asp-controller="Student" asp-action="StudentServiceRequest" class="feature-btn">
+            <img src="~/icons/r.svg" alt="Request a Service" class="feature-icon" />
+            <span>Request a Service</span>
+        </a>
+        <a asp-controller="Student" asp-action="ViewRequests" class="feature-btn">
+            <img src="~/icons/view_requests.png" alt="View all Requests" class="feature-icon" />
+            <span>View All Requests</span>
+        </a>
+        <a asp-controller="Student" asp-action="Resources" class="feature-btn">
+            <img src="~/icons/Resources.svg" alt="Resources" class="feature-icon" />
+            <span>Resources</span>
+        </a>
+    </div>
+</div>
+
+<div class="dashboard-container">
+
+    <div class="dashboard-grid">
+
+        <!-- Service Request Progress -->
+        <div class="dashboard-card">
+            <h3 class="dashboard-heading">
+                My Requests (@(Model?.Count() ?? 0))
+                <img src="~/icons/Icon.svg" alt="Progress Icon" class="heading-icon" />
+            </h3>
+
+
+            @if (Model != null && Model.Any())
+            {
+                // Find the request with the closest deadline
+                var closestRequest = Model
+                .Where(r => !string.IsNullOrEmpty(r.Deadline.ToString())).OrderBy(r => DateTime.Parse(r.Deadline.ToString())).FirstOrDefault();
+                if (closestRequest != null)
+                {
+                    <div class="request-list">
+                        <div class="request-item">
+                            <div class="category-header">
+                                @{
+                                    var displayName = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(
+                                    closestRequest.ServiceType.Replace("_", " ").ToLower()
+                                    );
+
+                                    if (displayName.Contains("Proofreading Editing"))
+                                        displayName = displayName.Replace("Proofreading Editing", "Proofreading & Editing");
+
+                                    if (displayName.Contains("Formatting Referencing"))
+                                        displayName = displayName.Replace("Formatting Referencing", "Formatting & Referencing");
+                                }
+
+                                <p class="category-title">@displayName</p>
+                                <span class="priority-badge @(closestRequest.Priority?.ToLower())">@closestRequest.Priority</span>
+                            </div>
+
+                            <div class="request-content">
+                                <div class="content-left">
+                                    <h3 class="request-title">@closestRequest.DocName</h3>
+                                    <p class="submission-date">
+                                        Submitted: @(closestRequest.CreatedAt.HasValue? closestRequest.CreatedAt.Value.ToLocalTime().ToString("dd/MM/yyyy"): "-")
+                                    </p>
+                                    <div class="request-footer">
+                                        <div class="status-group">
+                                            <span class="status-dot @(closestRequest.Status?.ToLower().Replace(" ", "-"))"></span>
+                                            <span class="status-text">@closestRequest.Status</span>
+                                        </div>
+                                        <span class="deadline-text">
+                                            Deadline: @(string.IsNullOrEmpty(closestRequest.Deadline.ToString())
+                                                                                ? "-" : closestRequest.Deadline)
+
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                        }
+                else
+                {
+                    <p>No valid deadlines found.</p>
+                }
+            }
+            else
+            {
+                <p>No service requests found.</p>
+            }
+
+        </div>
+
+
+        <!-- Notifications -->
+        @* <div class="dashboard-card">
+            <h3 class="dashboard-heading">
+                Notifications
+                <img src="~/icons/notification.svg" alt="Notification Icon" class="heading-icon" />
+            </h3>
+
+            <ul class="notification-list">
+                <li>
+                    <img src="~/icons/feedback.svg" class="left-icon" />
+                    <span>Feedback received</span>
+                    <img src="~/icons/right_arrow.svg" class="arrow-icon" />
+                </li>
+
+                <li>
+                    <img src="~/icons/message.svg" class="left-icon" />
+                    <span>1 New message</span>
+                    <img src="~/icons/right_arrow.svg" class="arrow-icon" />
+                </li>
+
+                <li>
+                    <img src="~/icons/rates.svg" class="left-icon" />
+                    <span>Rate your consultant</span>
+                    <img src="~/icons/right_arrow.svg" class="arrow-icon" />
+                </li>
+
+                <li>
+                    <img src="~/icons/status_update.svg" class="left-icon" />
+                    <span>Status update</span>
+                    <img src="~/icons/right_arrow.svg" class="arrow-icon" />
+                </li>
+
+            </ul>
+        </div> *@
+
+
+        <!-- Service Quote -->
+        @* <h3>Service Quote</h3> *@
+        @if (Model != null && Model.Any())
+        {
+            var completed = Model.Where(r => r.Status == "Completed").ToList();
+
+            if (completed.Any())
+            {
+                <div class="dashboard-card">
+                    @* <h3 class="dashboard-header">Feedback Ready</h3> *@
+                    <h3 class="dashboard-heading">
+                        Feedback Ready
+                    </h3>
+
+                    <div class="feedback-list">
+                        @foreach (var req in completed)
+                        {
+                            <div class="request-item">
+                                <div class="category-header">
+                                    <p class="category-title">@req.ServiceType</p>
+                                </div>
+                                <div class="request-content">
+                                    <div class="content-left">
+                                        <h3 class="request-title">@req.DocName</h3>
+                                        <p class="submission-date">
+                                            Submitted: @req.CreatedAt
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="request-content">
+                                    <div class="content-left">
+                                        <h3 class="category-title">Total Quotation: R @req.QuotationAmount</h3>
+                                        
+                                    </div>
+                                </div>
+                                <div class="content-right">
+                                    <a asp-action="DownloadFeedback"
+                                       asp-route-requestId="@req.Id"
+                                       class="download-btn">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M12 3V16M12 16L16 12M12 16L8 12" />
+                                            <path d="M3 17V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V17" />
+                                        </svg>
+                                        <span>Download</span>
+                                    </a>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <p>No feedback available yet</p>
+            }
+        }
+
+        @* <div class="btn-group">
+                <button class="btn">Accept</button>
+                <button class="btn btn-secondary">Request Review</button>
+                <button class="btn btn-outline">Download PDF</button>
+            </div> *@
+
+
+
+    </div>
+</div>

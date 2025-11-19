@@ -1,0 +1,128 @@
+﻿@using CiteWise_Web.Models.Account
+@model RoleSelectionModel
+
+@{
+    ViewData["HideLayoutElements"] = true;
+}
+
+<div class="register-page">
+    <div class="register-container">
+        <div class="logo-header">
+            <img src="~/img/citeWise.png" alt="CiteWise Logo" class="logo" />
+            <h2 class="app-name">iteWise</h2>
+        </div>
+
+        <h2 class="heading">Onboarding</h2>
+
+        <div class="register">
+            <div class="forms-stage show-register">
+                <div class="form-panel register-panel">
+                    <form id="onboardingForm" method="post" class="register-form">
+                        @Html.AntiForgeryToken()
+
+                        <input type="hidden" asp-for="Uid" />
+                        <input type="hidden" asp-for="IdToken" />
+
+                        <!-- Role Selection -->
+                        <div class="form-group custom-select">
+                            <select asp-for="role" id="roleSelect" class="form-input">
+                                <option value="">-- Select Role --</option>
+                                <option value="student">Student</option>
+                                <option value="consultant">Consultant</option>
+                            </select>
+
+                            <svg class="urgency-dropdown-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path d="M6 9L12 15L18 9" stroke="#0027B2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+
+                            <span asp-validation-for="role" class="text-danger"></span>
+                        </div>
+
+
+                        <!-- Student Fields -->
+                        <div id="studentFields" class="role-fields" style="display:none;">
+                            @* <div class="form-group">
+                                <label>Language</label>
+                                <input name="Language" class="form-input" />
+                            </div> *@
+
+                            <div class="form-group">
+                                <label>Institution</label>
+                                <input name="Institution" class="form-input" />
+                            </div>
+
+                            <div class="form-group">
+                                <label>Field Of Study</label>
+                                <input name="FieldOfStudy" class="form-input" />
+                            </div>
+                        </div>
+
+                        <!-- Consultant Fields -->
+                        <div id="consultantFields" class="role-fields" style="display:none;">
+                            @* <div class="form-group">
+                                <label>Language</label>
+                                <input name="Language" class="form-input" />
+                            </div> *@
+
+                            <div class="form-group">
+                                <label>Specialisation</label>
+                                <input name="Specialisation" class="form-input" />
+                            </div>
+                        </div>
+
+                       <button id="saveButton" type="submit" class="btn-primary" style="display:none;">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        document.getElementById("roleSelect").addEventListener("change", function () {
+            const role = this.value;
+            const studentFields = document.getElementById("studentFields");
+            const consultantFields = document.getElementById("consultantFields");
+            const saveButton = document.getElementById("saveButton");
+
+            // Hide all by default
+            studentFields.style.display = "none";
+            consultantFields.style.display = "none";
+            saveButton.style.display = "none";
+
+            // Show relevant fields + button
+            if (role === "student") {
+                studentFields.style.display = "block";
+                saveButton.style.display = "block";
+            } else if (role === "consultant") {
+                consultantFields.style.display = "block";
+                saveButton.style.display = "block";
+            }
+        });
+
+        document.getElementById("onboardingForm").addEventListener("submit", function (e) {
+            const role = document.getElementById("roleSelect").value;
+            const studentFields = document.getElementById("studentFields");
+            const consultantFields = document.getElementById("consultantFields");
+
+            if (!role) {
+                e.preventDefault();
+                alert("Please select a role first.");
+                return;
+            }
+
+            // Disable irrelevant inputs
+            studentFields.querySelectorAll("input").forEach(i => i.disabled = (role !== "student"));
+            consultantFields.querySelectorAll("input").forEach(i => i.disabled = (role !== "consultant"));
+
+            // Route form to correct endpoint
+            if (role === "student")
+                this.action = "/Onboarding/Student";
+            else if (role === "consultant")
+                this.action = "/Onboarding/Consultant";
+        });
+    </script>
+}

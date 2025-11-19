@@ -1,0 +1,82 @@
+﻿@using CiteWise_Web.Models.Account
+@model LoginModel
+
+@{
+    ViewData["HideLayoutElements"] = true;
+}
+
+<div class="login-page">
+    <div class="register-container">
+        <div class="logo-header">
+            <div class="logo-bg">
+                <img src="~/img/citeWise.png" alt="CiteWise Logo" class="logo" />
+            </div>
+            <h2 class="app-name">iteWise</h2>
+        </div>
+
+        <h2 class="heading">Welcome Back</h2>
+
+        <div class="register">
+            <div class="forms-stage show-register">
+                <div class="form-panel register-panel">
+                    <form asp-action="Login" asp-controller="Account" method="post" class="register-form">
+                        @Html.AntiForgeryToken()
+
+                        <!-- Shows model-level errors (e.g. wrong email/password) -->
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="form-group">
+                            <label asp-for="email"></label>
+                            <input asp-for="email" class="form-input" />
+                            <span asp-validation-for="email" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group password-wrapper">
+                            <label asp-for="Password"></label>
+                            <div class="password-field">
+                                <input asp-for="Password" type="password" class="form-input" id="password" />
+                                <button type="button" class="toggle-password" aria-label="Show/Hide Password">
+                                    <img src="~/icons/eye_open.svg" class="eye-open" alt="Show Password" />
+                                    <img src="~/icons/eye_closed.svg" class="eye-closed" alt="Hide Password" style="display:none;" />
+                                </button>
+                            </div>
+                            <span asp-validation-for="Password" class="text-danger"></span>
+
+                            <div class="forgot-password">
+                                <a asp-area="" asp-controller="Account" asp-action="ForgotPassword">
+                                    Forgot Password?
+                                </a>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-primary">Login</button>
+
+                        <!-- Google button -->
+                        <button type="button" class="btn-google" id="btnGoogleLogin">
+                            <img src="~/icons/google.svg" alt="Google Icon" />
+                            Continue with Google
+                        </button>
+
+                        <div class="divider-line"></div>
+
+                        <!-- Firebase Compat SDK -->
+                        <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+                        <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+                        <script src="~/js/firebase-login.js"></script>
+
+                        <div class="login-link">
+                            Dont have an account?
+                            <a asp-area="" asp-controller="Account" asp-action="Register">
+                                Register
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

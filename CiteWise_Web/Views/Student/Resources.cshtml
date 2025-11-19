@@ -1,0 +1,141 @@
+﻿@model IReadOnlyList<CiteWise_Web.Models.Resources.ResourceItem>
+
+@{
+    Layout = "_LayoutAuth";
+}
+
+<div class="dashboard-header">
+    @* <h2>Good morning, Connor</h2> *@
+    <h2>Find Resources</h2>
+    <br />
+    <p>Postgrad resources to assist you in your research </p>
+</div>
+
+<!-- Resource List -->
+
+
+<div class="dashboard-container">
+
+    <div class="resource-grid">
+
+        <div class="dashboard-card">
+            <form method="get" class="row g-2 mb-3">
+                <div class="form-group col-md-4">
+                    <input name="q"
+                           value="@ViewBag.Query"
+                           class="icon-input"
+                           placeholder="Search by name..." />
+                </div>
+            </form>
+            <hr />
+            <form method="get" class="row g-2 mb-3">
+                <div class="form-group">
+                    <select name="faculty" class="icon-input">
+                        <option value="">-- Filter by Faculty --</option>
+                        <option value="GENERAL" selected="@(ViewBag.Faculty == "GENERAL")">General</option>
+                        <option value="ENGINEERING" selected="@(ViewBag.Faculty == "ENGINEERING")">Engineering</option>
+                        <option value="SCIENCE" selected="@(ViewBag.Faculty == "SCIENCE")">Science</option>
+                        <option value="BUSINESS" selected="@(ViewBag.Faculty == "BUSINESS")">Business</option>
+                        <option value="LAW" selected="@(ViewBag.Faculty == "LAW")">Law</option>
+                        <option value="EDUCATION" selected="@(ViewBag.Faculty == "EDUCATION")">Education</option>
+                        <option value="HEALTH_SCIENCES" selected="@(ViewBag.Faculty == "HEALTH_SCIENCES")">Health Sciences</option>
+                        <option value="ARTS" selected="@(ViewBag.Faculty == "ARTS")">Arts</option>
+                    </select>
+                </div>
+
+                @* <div class="form-group">
+                    <input name="q" value="@ViewBag.Query" class="icon-input" placeholder="Search name..." />
+                </div> *@
+                @* <div class="col-md-2">
+                    <button class="btn-next" type="submit">Apply</button>
+
+                    <a href="@Url.Action("Resources", "Admin")" class="btn-clear">
+                        Clear Filter
+                    </a>
+                </div> *@
+                <div class="hero-buttons">
+                    <button class="btn-next" type="submit">Apply</button>
+                    <button type="button" class="btn-next" onclick="window.location='@Url.Action("Resources", "Student")'">
+                        Clear Filter
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div class="dashboard-card">
+
+            @if (Model != null && Model.Any())
+            {
+                <div class="request-list">
+                    @foreach (var r in Model)
+                    {
+                        <div class="request-item">
+                            <div class="category-header">
+                                @{
+                                    var displayName = System.Globalization.CultureInfo
+                                    .CurrentCulture
+                                    .TextInfo
+                                    .ToTitleCase(r.Category.Replace("_", " ").ToLower());
+
+                                    // Optional replacements
+                                    if (displayName.Contains("Writing Guide"))
+                                        displayName = displayName.Replace("Writing Guide", "Writing Guide");
+
+                                    if (displayName.Contains("AI Usage"))
+                                        displayName = displayName.Replace("AI Usage", "AI Usage Guidelines");
+                                }
+                                <h3 class="category-title">@displayName</h3>
+                                <span class="priority-badge">@r.Faculty</span>
+                            </div>
+
+                            <div class="request-content">
+                                <div class="content-left">
+                                    <h3 class="request-title">@r.Name</h3>
+                                </div>
+                                <div class="request-footer">
+                                    <div class="status-group">
+                                        <!-- Open and Download buttons -->
+                                        <div class="action-icons">
+
+                                            <!-- Open -->
+                                            <a asp-action="DownloadResource"
+                                               asp-route-id="@r.Id"
+                                               asp-route-disposition="inline"
+                                               title="Open"
+                                               class="icon-link icon-open">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <path d="M14 3h7v7m-1.5-6.5L10 14" />
+                                                    <path d="M5 5v14h14v-5" />
+                                                </svg>
+                                            </a>
+
+                                            <!-- Download -->
+                                            <a asp-action="DownloadResource"
+                                               asp-route-id="@r.Id"
+                                               asp-route-disposition="attachment"
+                                               title="Download"
+                                               class="icon-link icon-download">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14" />
+                                                </svg>
+                                            </a>                                        
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <p>No resources found.</p>
+            }
+
+        </div>
+    </div>
+
+</div>
+

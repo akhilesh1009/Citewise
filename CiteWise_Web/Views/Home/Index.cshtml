@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<section class="hero">
+    <div class="hero-left">
+        <h2 class="hero-title">CiteWise</h2>
+        <p class="hero-desc">
+            Dr Majoko Projects (Pty) Ltd is a South African academic service provider
+            dedicated to assisting postgraduate students with high-quality research
+            support services. CiteWise services include data analysis (quantitative
+            and qualitative), academic proofreading, structured writing guidance,
+            and research coaching.
+        </p>
+        <div class="hero-buttons">
+            <a asp-area="" asp-controller="Account" asp-action="Register" class="reg">Register Now</a>
+            <a asp-area="" asp-controller="Account" asp-action="Login" class="btn-secondary">Login</a>
+        </div>
+    </div>
+
+
+
+    <div class="outer-circle">
+        <img src="~/img/main_circle.png" alt="Main Logo" class="main-img" />
+        <!-- 4 icons positioned around circumference -->
+        <div class="small-circle icon1">
+            <img src="~/img/Growth.png" alt="Growth" />
+        </div>
+        <div class="small-circle icon2">
+            <img src="/img/Network.png" alt="Network" />
+        </div>
+        <div class="small-circle icon3">
+            <img src="/img/Calander.png" alt="Calendar" />
+        </div>
+        <div class="small-circle icon4">
+            <img src="/img/Cloud.png" alt="Cloud" />
+        </div>
+    </div>
+</section>

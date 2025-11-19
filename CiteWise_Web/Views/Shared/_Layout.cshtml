@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - CiteWise_Web</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/css/register.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/LandingPage.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/MainApplicationNavBar.css" asp-append-version="true" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+    @if (!(ViewData["HideLayoutElements"] as bool? ?? false))
+    {
+        <nav class="navbar">
+            <div class="navbar-left">
+                <img src="~/img/citeWise.png" alt="CiteWise Logo" class="nav-logo" />
+            </div>
+
+            <div class="navbar-center">
+                <a asp-area="" asp-controller="Home" asp-action="Index"
+                   class="nav-link @(ViewContext.RouteData.Values["action"]?.ToString() == "Index" ? "active" : "")">
+                    Home
+                </a>
+
+                <a asp-area="" asp-controller="Home" asp-action="Services"
+                   class="nav-link @(ViewContext.RouteData.Values["action"]?.ToString() == "Services" ? "active" : "")">
+                    Services
+                </a>
+
+                <a asp-area="" asp-controller="Home" asp-action="ContactUs"
+                   class="nav-link @(ViewContext.RouteData.Values["action"]?.ToString() == "ContactUs" ? "active" : "")">
+                    Contact Us
+                </a>
+
+                <a asp-area="" asp-controller="Home" asp-action="AboutUs"
+                   class="nav-link @(ViewContext.RouteData.Values["action"]?.ToString() == "AboutUs" ? "active" : "")">
+                    About Us
+                </a>
+            </div>
+
+            <div class="navbar-right">
+                <a asp-controller="Account" asp-action="Register" class="nav-account register-btn">
+                    <span class="account-text">Register Now</span>
+                </a>
+
+                <button class="hamburger-menu" id="hamburgerMenu" aria-label="Open menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+    }
+
+    <div class="mobile-sidebar-overlay" id="sidebarOverlay"></div>
+    <div class="mobile-sidebar" id="mobileSidebar">
+        <div class="mobile-sidebar-header">
+            <div class="mobile-sidebar-brand">
+                <img src="~/img/citeWise.png" alt="CiteWise Logo" class="mobile-logo" />
+                <span class="mobile-brand-name">iteWise</span>
+            </div>
+            <button class="close-sidebar" id="closeSidebar" aria-label="Close menu">
+                <i class="fa-solid fa-times"></i>
+            </button>
+        </div>
+
+        <div class="mobile-sidebar-links">
+            <a asp-area="" asp-controller="Home" asp-action="Index"
+               class="mobile-nav-link @(ViewContext.RouteData.Values["action"]?.ToString() == "Index" ? "active" : "")">
+                Home
+            </a>
+
+            <a asp-area="" asp-controller="Home" asp-action="Services"
+               class="mobile-nav-link @(ViewContext.RouteData.Values["action"]?.ToString() == "Services" ? "active" : "")">
+                Services
+            </a>
+
+            <a asp-area="" asp-controller="Home" asp-action="ContactUs"
+               class="mobile-nav-link @(ViewContext.RouteData.Values["action"]?.ToString() == "ContactUs" ? "active" : "")">
+                Contact Us
+            </a>
+
+            <a asp-area="" asp-controller="Account" asp-action="Register"
+               class="mobile-nav-link">
+                Register
+            </a>
+        </div>
+    </div>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/Landing.js" asp-append-version="true"></script>
+    <script src="~/js/MainApplicationNavBar.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

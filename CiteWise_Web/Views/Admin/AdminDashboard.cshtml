@@ -1,0 +1,160 @@
+﻿@model List<CiteWise_Web.Models.ServiceRequest.ServiceRequestItem>
+
+@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "_LayoutAuth";
+    var consultants = ViewBag.Consultants as List<CiteWise_Web.Models.ConsultantItem>;
+    var students = ViewBag.Students as List<CiteWise_Web.Models.Account.UserProfile>;
+    var pending = ViewBag.Pending as List<CiteWise_Web.Models.ConsultantItem>;
+    var approved = ViewBag.Approved as List<CiteWise_Web.Models.ConsultantItem>;
+}
+
+
+
+
+<div class="dashboard-header">
+    <h2>Hi, @(Context.Session.GetString("UserName") ?? "Guest")</h2>
+    <br />
+    <p>Here's what's happening with your team today.</p>
+</div>
+
+<div class="dashboard-container">
+
+    <div class="admin-grid">
+
+        <div class="dashboard-card">
+            <h3 class="dashboard-heading">
+                Total Consultants
+            </h3>
+            <p>
+                <strong style="font-size: 2rem; color: #0027B2; font-family: 'Poppins', sans-serif;">@(consultants?.Count ?? 0)</strong>
+            </p>
+        </div>
+
+        <div class="dashboard-card">
+            <h3 class="dashboard-heading">
+                Total Students
+            </h3>
+            <p>
+                <strong style="font-size: 2rem; color: #0027B2; font-family: 'Poppins', sans-serif;">@(students?.Count ?? 0)</strong>
+            </p>
+        </div>
+
+        <div class="dashboard-card">
+            <h3 class="dashboard-heading">
+                Pending Consultants
+            </h3>
+
+            @if (pending != null && pending.Any())
+            {
+                <div class="feedback-list">
+                    @foreach (var c in pending)
+                    {
+                        <div class="request-item">
+                            <div class="category-header">
+                                <p class="category-title">@c.Name</p>
+
+                            </div>
+                            <div class="request-content">
+                                <div class="content-left">
+                                    <p class="submission-date">
+                                        @c.Email
+                                    </p>
+                                    <p class="submission-date">
+                                        @c.Speciality
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="content-right">
+                                <form asp-action="ApproveConsultant" method="post">
+                                    <input type="hidden" name="id" value="@c.Id" />
+                                    <button type="submit" class="download-btn">Approve</button>
+                                </form>
+
+                                <form asp-action="RejectConsultant" method="post" style="display:inline;">
+                                    <input type="hidden" name="id" value="@c.Id" />
+                                    <button type="submit" class="download-btn">Reject</button>
+                                </form>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <p>No pending consultants.</p>
+            }
+        </div>
+
+    </div>
+    <br />
+    <div class="dashboard-card">
+        <h3 class="dashboard-heading">
+            Approved Consultants
+        </h3>
+        @if (approved != null && approved.Any())
+        {
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Speciality</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var c in approved)
+                    {
+                        <tr>
+                            <td>@c.Name</td>
+                            <td>@c.Email</td>
+                            <td>@c.Speciality</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>No approved consultants yet.</p>
+        }
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+
+    /* Added styles to make the cards narrower */
+    .admin-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 2fr; /* first 2 small, last 2 larger */
+        gap: 25px; /* spacing between columns */
+        align-items: start;
+        justify-content: center;
+        width: 100%;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .dashboard-card-narrow {
+        max-width: 180px;
+        min-width: 250px;
+        flex-shrink: 0;
+        a margin: 0 auto;
+    }
+
+</style>
