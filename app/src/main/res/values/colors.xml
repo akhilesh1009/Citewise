@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!--    <color name="main_background">#EBECF0</color>-->
+    <color name="ui_background">#F5F6F9</color>
+    <color name="elements_background">#EBECF0</color>
+    <color name="dark_shadow">#26000000</color>
+    <color name="light_highlight">#66FFFFFF</color>
+    <color name="gradient_start">#001C7F</color>
+    <color name="gradient_middle">#2943A1</color>
+    <color name="gradient_end">#0027B2</color>
+    <color name="logo_color">#2943A1</color>
+    <color name="text_dark">#212121</color>
+    <color name="text_faded">#424242</color>
+    <color name="text_light">#ffffff</color>
+    <color name="progress_background">#f7f7f7</color>
+    <color name="priority_Low">#38E154</color>
+    <color name="priority_Medium">#EBA900</color>
+    <color name="priority_High">#FF0000</color>
+    <color name="blue_400">#0038FF</color>
+    <color name="indigo_500">#08C1B2</color>
+    <color name="purple_400">#9D00FF</color>
+    <color name="green_500">#00FFAE</color>
+</resources>

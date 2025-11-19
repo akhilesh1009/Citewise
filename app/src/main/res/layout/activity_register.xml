@@ -1,0 +1,498 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/ui_background"
+    android:padding="16dp"
+    tools:context=".RegisterActivity">
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="8dp"
+        android:src="@drawable/logo"
+        android:scaleType="fitCenter"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvLoginTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Register"
+        android:textColor="@color/gradient_end"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/logo" />
+
+
+    <ScrollView
+        android:id="@+id/scrollContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/tvLoginTitle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="310dp">
+
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/toggleAccountType"
+            android:layout_width="300dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="16dp"
+            android:layout_gravity="center"
+            android:background="@drawable/toggle_group_track"
+            android:padding="4dp"
+            android:clipToPadding="false"
+            app:singleSelection="true"
+            app:selectionRequired="true">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnStudent"
+                style="@style/Widget.CiteWise.ProfileToggle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Student"
+                android:checkable="true"
+                android:checked="true"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnConsultant"
+                style="@style/Widget.CiteWise.ProfileToggle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Consultant"
+                android:checkable="true"/>
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+
+    <TextView
+        android:id="@+id/tvFirstNameLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="12dp"
+        android:fontFamily="@font/public_sans_medium"
+        android:labelFor="@id/etEmail"
+        android:text="First Name"
+        android:textColor="@color/gradient_end"
+        android:textSize="17sp"
+        app:layout_constraintStart_toStartOf="@id/tilFirstName"
+        app:layout_constraintTop_toBottomOf="@id/toggleAccountType"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilFirstName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:boxBackgroundMode="outline"
+        app:boxCornerRadiusTopStart="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:hintEnabled="true"
+        app:hintTextColor="@color/text_faded"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvFirstNameLabel">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etFirstName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins"
+            android:inputType="textPersonName"
+            android:background="@drawable/text_field"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:textColor="@color/text_faded"
+            android:textSize="14sp"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/tvLastNameLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="12dp"
+        android:fontFamily="@font/public_sans_medium"
+        android:labelFor="@id/etEmail"
+        android:text="Last Name"
+        android:textColor="@color/gradient_end"
+        android:textSize="17sp"
+        app:layout_constraintStart_toStartOf="@id/tilSurname"
+        app:layout_constraintTop_toBottomOf="@id/tilFirstName"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilSurname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:boxBackgroundMode="outline"
+        app:boxCornerRadiusTopStart="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:hintEnabled="true"
+        app:hintTextColor="@color/text_faded"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvLastNameLabel">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etSurname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins"
+            android:inputType="textPersonName"
+            android:background="@drawable/text_field"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:textColor="@color/text_faded"
+            android:textSize="14sp"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/tvEmailLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="12dp"
+        android:fontFamily="@font/public_sans_medium"
+        android:labelFor="@id/etEmail"
+        android:text="Email"
+        android:textColor="@color/gradient_end"
+        android:textSize="17sp"
+        app:layout_constraintStart_toStartOf="@id/tilEmail"
+        app:layout_constraintTop_toBottomOf="@id/tilSurname"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:boxBackgroundMode="outline"
+        app:boxCornerRadiusTopStart="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:hintEnabled="true"
+        app:hintTextColor="@color/text_faded"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvEmailLabel">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins"
+            android:inputType="textEmailAddress"
+            android:background="@drawable/text_field"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:textColor="@color/text_faded"
+            android:textSize="14sp"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/tvPasswordLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="12dp"
+        android:fontFamily="@font/public_sans_medium"
+        android:labelFor="@id/etEmail"
+        android:text="Password"
+        android:textColor="@color/gradient_end"
+        android:textSize="17sp"
+        app:layout_constraintStart_toStartOf="@id/tilPassword"
+        app:layout_constraintTop_toBottomOf="@id/tilEmail" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:boxBackgroundMode="outline"
+        app:boxCornerRadiusTopStart="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:endIconMode="password_toggle"
+        app:endIconTint="@color/gradient_end"
+        app:errorIconDrawable="@null"
+        app:hintEnabled="true"
+        app:hintTextColor="@color/text_faded"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvPasswordLabel">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins"
+            android:inputType="textPassword"
+            android:paddingHorizontal="20dp"
+            android:background="@drawable/text_field"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:textColor="@color/text_faded"
+            android:textSize="14sp"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/tvConfirmPasswordLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="12dp"
+        android:fontFamily="@font/public_sans_medium"
+        android:labelFor="@id/etEmail"
+        android:text="Confirm Password"
+        android:textColor="@color/gradient_end"
+        android:textSize="17sp"
+        app:layout_constraintStart_toStartOf="@id/tilConfirmPassword"
+        app:layout_constraintTop_toBottomOf="@id/tilPassword" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilConfirmPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:boxBackgroundMode="outline"
+        app:boxCornerRadiusTopStart="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:endIconMode="password_toggle"
+        app:endIconTint="@color/gradient_end"
+        app:errorIconDrawable="@null"
+        app:hintEnabled="true"
+        app:hintTextColor="@color/text_faded"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvConfirmPasswordLabel">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etConfirmPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins"
+            android:inputType="textPassword"
+            android:paddingHorizontal="20dp"
+            android:background="@drawable/text_field"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:textColor="@color/text_faded"
+            android:textSize="14sp"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:id="@+id/sectionStudent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/tilConfirmPassword"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="vertical"
+        tools:visibility="gone">
+
+        <TextView
+            android:id="@+id/tvFieldStudyLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="12dp"
+            android:fontFamily="@font/public_sans_medium"
+            android:labelFor="@id/etEmail"
+            android:text="Field of Study"
+            android:textColor="@color/gradient_end"
+            android:textSize="17sp"
+            app:layout_constraintStart_toStartOf="@id/tilConfirmPassword"
+            app:layout_constraintTop_toBottomOf="@id/tilPassword" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilFieldOfStudy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:boxBackgroundMode="outline"
+            app:boxCornerRadiusTopStart="8dp"
+            app:boxCornerRadiusTopEnd="8dp"
+            app:boxCornerRadiusBottomStart="8dp"
+            app:boxCornerRadiusBottomEnd="8dp"
+            app:errorIconDrawable="@null"
+            app:hintEnabled="true"
+            app:hintTextColor="@color/text_faded">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etFieldOfStudy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:inputType="textCapWords"
+                android:paddingHorizontal="20dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:background="@drawable/text_field"
+                android:textColor="@color/text_faded"
+                android:textSize="14sp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/sectionConsultant"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/tilConfirmPassword"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <TextView
+            android:id="@+id/tvSpecialisationLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="12dp"
+            android:fontFamily="@font/public_sans_medium"
+            android:labelFor="@id/etEmail"
+            android:text="Specialisation"
+            android:textColor="@color/gradient_end"
+            android:textSize="17sp"
+            app:layout_constraintStart_toStartOf="@id/tilConfirmPassword"
+            app:layout_constraintTop_toBottomOf="@id/tilPassword" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilSpecialisation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:boxBackgroundMode="outline"
+            app:boxCornerRadiusTopStart="8dp"
+            app:boxCornerRadiusTopEnd="8dp"
+            app:boxCornerRadiusBottomStart="8dp"
+            app:boxCornerRadiusBottomEnd="8dp"
+            app:errorIconDrawable="@null"
+            app:hintEnabled="true"
+            app:hintTextColor="@color/text_faded">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etSpecialisation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:inputType="textCapWords"
+                android:paddingHorizontal="20dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:background="@drawable/text_field"
+                android:textColor="@color/text_faded"
+                android:textSize="14sp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/btn_register"
+        android:fontFamily="@font/poppins_bold"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text="SIGN UP"
+        android:textAllCaps="true"
+        android:textColor="@color/text_light"
+        android:textSize="16sp"
+        app:backgroundTint="@null"
+        app:layout_constraintTop_toBottomOf="@id/sectionConsultant"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        app:layout_constraintTop_toBottomOf="@id/btnSignUp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/tvAlreadyHaveAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/poppins"
+            android:text="Already have an account? "
+            android:textColor="@color/text_dark"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tvGoLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/poppins_sembold"
+            android:text=" Login"
+            android:textColor="@color/gradient_middle"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

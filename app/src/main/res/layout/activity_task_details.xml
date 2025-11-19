@@ -1,0 +1,755 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/ui_background"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- ===== Header ===== -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="20dp">
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Back"
+                android:src="@drawable/ic_chevron_left"
+                app:tint="@color/gradient_end"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true" />
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Task Details"
+                android:textColor="@color/gradient_end"
+                android:textSize="28sp"
+                android:fontFamily="@font/poppins_bold"
+                android:layout_centerInParent="true" />
+        </RelativeLayout>
+
+        <!-- ===== Status + Project name strip ===== -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="18dp"
+            app:cardUseCompatPadding="true"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:strokeWidth="0dp"
+            android:layout_marginBottom="12dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/card_neumorphic_background"
+                android:padding="14dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/chipPriority"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="6dp"
+                        android:text="Low"
+                        android:textSize="12sp"
+                        android:textColor="@color/text_faded"
+                        android:fontFamily="@font/poppins_medium"
+                        android:background="@drawable/bg_pill_soft" />
+
+                    <TextView
+                        android:id="@+id/tvProjectName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Project Name"
+                        android:textSize="18sp"
+                        android:textColor="@color/text_dark"
+                        android:fontFamily="@font/poppins_bold"
+                        android:gravity="center"
+                        android:layout_marginHorizontal="12dp" />
+
+                    <TextView
+                        android:id="@+id/tvDeadline"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Deadline"
+                        android:textSize="12sp"
+                        android:textColor="@color/text_faded"
+                        android:fontFamily="@font/poppins_medium" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvStudentAndDeadline"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Student name"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_faded"
+                    android:fontFamily="@font/poppins"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- ===== Service ===== -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="18dp"
+            app:cardUseCompatPadding="true"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:strokeWidth="0dp"
+            android:layout_marginBottom="12dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/card_neumorphic_background"
+                android:padding="14dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Service"
+                    android:textSize="16sp"
+                    android:textColor="@color/text_faded"
+                    android:fontFamily="@font/poppins_medium" />
+
+                <TextView
+                    android:id="@+id/tvServiceName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Service Name"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_dark"
+                    android:fontFamily="@font/poppins_medium"
+                    android:padding="12dp"
+                    android:background="@drawable/bg_pill_soft"
+                    android:layout_marginTop="8dp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- ===== Files (Student default) ===== -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="18dp"
+            app:cardUseCompatPadding="true"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:strokeWidth="0dp"
+            android:layout_marginBottom="12dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/card_neumorphic_background"
+                android:padding="14dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Files"
+                        android:textSize="16sp"
+                        android:textColor="@color/text_faded"
+                        android:fontFamily="@font/poppins_medium" />
+
+                    <TextView
+                        android:id="@+id/tvFilesCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1"
+                        android:textSize="12sp"
+                        android:textColor="@color/text_faded"
+                        android:fontFamily="@font/poppins_medium"
+                        android:background="@drawable/bg_pill_soft"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="4dp" />
+                </LinearLayout>
+
+                <!-- Original file line -->
+                <LinearLayout
+                    android:id="@+id/rowStudentFile"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/bg_pill_soft"
+                    android:paddingHorizontal="12dp"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:id="@+id/tvStudentFileName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Student file"
+                        android:textColor="@color/text_dark"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/poppins_medium" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnViewStudentFile"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:minWidth="48dp"
+                        android:paddingHorizontal="10dp"
+                        android:backgroundTint="@android:color/transparent"
+                        app:strokeColor="@color/gradient_middle"
+                        app:strokeWidth="1dp"
+                        app:icon="@drawable/ic_eye"
+                        app:iconTint="@color/text_dark"
+                        app:iconSize="18dp"
+                        android:contentDescription="View" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnDownloadStudentFile"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:minWidth="48dp"
+                        android:paddingHorizontal="10dp"
+                        android:layout_marginStart="8dp"
+                        android:backgroundTint="@android:color/transparent"
+                        app:strokeColor="@color/gradient_middle"
+                        app:strokeWidth="1dp"
+                        app:icon="@drawable/ic_download"
+                        app:iconTint="@color/text_dark"
+                        app:iconSize="18dp"
+                        android:contentDescription="Download" />
+                </LinearLayout>
+
+                <!-- Feedback/annotated file line (optional) -->
+                <LinearLayout
+                    android:id="@+id/rowFeedbackFile"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/bg_pill_soft"
+                    android:paddingHorizontal="12dp"
+                    android:layout_marginTop="10dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/tvFeedbackFileName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Upload feedback/annotated file"
+                        android:textColor="@color/text_dark"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/poppins_medium" />
+
+                    <!-- Hidden view button for feedback -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnViewFeedbackFile"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:minWidth="48dp"
+                        android:paddingHorizontal="10dp"
+                        android:backgroundTint="@android:color/transparent"
+                        app:strokeColor="@color/gradient_middle"
+                        app:strokeWidth="1dp"
+                        app:icon="@drawable/ic_eye"
+                        app:iconTint="@color/text_dark"
+                        app:iconSize="18dp"
+                        android:contentDescription="View"
+                        android:visibility="gone" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnDownloadFeedbackFile"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:minWidth="48dp"
+                        android:paddingHorizontal="10dp"
+                        android:layout_marginStart="8dp"
+                        android:backgroundTint="@android:color/transparent"
+                        app:strokeColor="@color/gradient_middle"
+                        app:strokeWidth="1dp"
+                        app:icon="@drawable/ic_download"
+                        app:iconTint="@color/text_dark"
+                        app:iconSize="18dp"
+                        android:contentDescription="Download" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- ===== Consultant-only: file row + preview/download ===== -->
+        <LinearLayout
+            android:id="@+id/cardQualitativeStudy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="12dp"
+            android:background="@drawable/rounded_card_background"
+            android:elevation="2dp"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="12dp">
+
+            <TextView
+                android:id="@+id/tvDocName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Student Document"
+                android:textSize="16sp"
+                android:textColor="@color/text_dark" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnConsultantPreview"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:minWidth="48dp"
+                android:paddingHorizontal="10dp"
+                android:backgroundTint="@android:color/transparent"
+                app:strokeColor="@color/gradient_middle"
+                app:strokeWidth="1dp"
+                app:icon="@drawable/ic_feedback_consultant"
+                app:iconTint="@color/text_dark"
+                app:iconSize="18dp"
+                android:contentDescription="Preview" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnConsultantDownload"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:minWidth="48dp"
+                android:paddingHorizontal="10dp"
+                android:layout_marginStart="8dp"
+                android:backgroundTint="@android:color/transparent"
+                app:strokeColor="@color/gradient_middle"
+                app:strokeWidth="1dp"
+                app:icon="@drawable/ic_download"
+                app:iconTint="@color/text_dark"
+                app:iconSize="18dp"
+                android:contentDescription="Download" />
+        </LinearLayout>
+
+        <!-- ===== Upload feedback (opens bottom sheet) ===== -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/rounded_card_background"
+            android:elevation="2dp"
+            android:padding="16dp"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="12dp"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Upload feedback"
+                android:textSize="16sp"
+                android:textColor="@color/text_dark"/>
+
+            <Button
+                android:id="@+id/btnUploadFeedback"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Upload"
+                android:textColor="@color/text_light"
+                android:backgroundTint="@color/gradient_end"
+                app:cornerRadius="8dp" />
+        </LinearLayout>
+
+        <!-- ===== Additional Information ===== -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="18dp"
+            app:cardUseCompatPadding="true"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:strokeWidth="0dp"
+            android:layout_marginBottom="12dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/card_neumorphic_background"
+                android:padding="14dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Additional Information"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_faded"
+                    android:fontFamily="@font/poppins_medium" />
+
+                <TextView
+                    android:id="@+id/tvDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="—"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_dark"
+                    android:fontFamily="@font/poppins"
+                    android:layout_marginTop="8dp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- ===== Quote (Student-side + Download Pdf inside card) ===== -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="18dp"
+            app:cardUseCompatPadding="true"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:strokeWidth="0dp"
+            android:layout_marginBottom="12dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/card_neumorphic_background"
+                android:padding="14dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Quote"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_faded"
+                    android:fontFamily="@font/poppins_medium" />
+
+                <!-- Quote amount or "No quotation available" is set in code -->
+                <TextView
+                    android:id="@+id/tvQuoteSummary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="—"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_dark"
+                    android:fontFamily="@font/poppins_medium"
+                    android:gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:visibility="gone"/>
+
+                <!-- Student actions -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnAcceptQuote"
+                        style="@style/Widget.MaterialComponents.Button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:backgroundTint="@color/gradient_middle"
+                        android:text="Accept"
+                        android:textAllCaps="false"
+                        android:textColor="@android:color/white"
+                        app:cornerRadius="18dp"
+                        android:textSize="10dp"
+                        app:icon="@drawable/ic_check"
+                        app:iconTint="@android:color/white"
+                        app:iconGravity="textStart"
+                        app:iconPadding="8dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnDeclineQuote"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:layout_marginStart="8dp"
+                        android:text="Decline"
+                        android:textSize="10dp"
+                        android:textAllCaps="false"
+                        android:textColor="@color/gradient_middle"
+                        app:strokeColor="@color/gradient_middle"
+                        app:strokeWidth="1dp"
+                        app:icon="@drawable/ic_close"
+                        app:iconTint="@color/gradient_middle"
+                        app:iconGravity="textStart"
+                        app:iconPadding="8dp" />
+                </LinearLayout>
+
+                <!-- Consultant-only: Download Pdf inside quote card -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:layout_marginTop="8dp">
+
+<!--                    <com.google.android.material.button.MaterialButton-->
+<!--                        android:id="@+id/btnDownloadPdf"-->
+<!--                        style="@style/Widget.MaterialComponents.Button"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="36dp"-->
+<!--                        android:minWidth="48dp"-->
+<!--                        android:paddingHorizontal="16dp"-->
+<!--                        android:text="Download Pdf"-->
+<!--                        android:textSize="10dp"-->
+<!--                        android:textAllCaps="false"-->
+<!--                        android:textColor="@android:color/white"-->
+<!--                        android:backgroundTint="@color/gradient_middle"-->
+<!--                        app:cornerRadius="18dp"-->
+<!--                        app:icon="@drawable/ic_download"-->
+<!--                        app:iconTint="@android:color/white"-->
+<!--                        app:iconGravity="textStart"-->
+<!--                        app:iconPadding="8dp" />-->
+                </LinearLayout>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- ===== Progress (unused/hidden) ===== -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="18dp"
+            app:cardUseCompatPadding="true"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:strokeWidth="0dp"
+            android:layout_marginBottom="12dp"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/card_neumorphic_background"
+                android:padding="14dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Progress"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_faded"
+                    android:fontFamily="@font/poppins_medium" />
+
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/progressStage"
+                    style="?attr/linearProgressIndicatorStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginTop="10dp"
+                    android:max="100"
+                    android:progress="0"
+                    app:indicatorColor="@color/gradient_middle"
+                    app:trackColor="@color/progress_background"
+                    app:trackThickness="10dp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- ===== Consultant-only: Version history (hidden) ===== -->
+        <LinearLayout
+            android:id="@+id/versionHistoryPanel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/rounded_card_background"
+            android:elevation="2dp"
+            android:padding="16dp"
+            android:layout_marginBottom="12dp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tvVersionHistoryHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Version history"
+                android:textSize="16sp"
+                android:textColor="@color/text_dark"
+                android:drawableEnd="@drawable/sharp_arrow_drop_down_24"
+                android:paddingEnd="4dp" />
+
+            <LinearLayout
+                android:id="@+id/versionHistoryContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:paddingTop="8dp">
+
+                <TextView
+                    style="@style/VersionHistoryItem"
+                    android:text="Original version" />
+                <TextView
+                    style="@style/VersionHistoryItem"
+                    android:text="Annotated version 1" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- ===== Consultant-only: Progress status (hidden) ===== -->
+        <LinearLayout
+            android:id="@+id/progressStatusPanel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/rounded_card_background"
+            android:elevation="2dp"
+            android:padding="16dp"
+            android:visibility="gone"
+            android:layout_marginBottom="12dp">
+
+            <TextView
+                android:id="@+id/tvProgressStatusHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Update progress status"
+                android:textSize="16sp"
+                android:textColor="@color/text_dark"
+                android:drawableEnd="@drawable/sharp_arrow_drop_down_24"
+                android:paddingEnd="4dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:gravity="center_vertical"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:text="Progress status"
+                android:textColor="@color/text_faded"
+                android:background="@drawable/bg_spinner_popup_white"
+                android:drawableEnd="@drawable/sharp_arrow_drop_down_24" />
+
+            <LinearLayout
+                android:id="@+id/progressHistoryContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:paddingTop="8dp">
+
+                <TextView
+                    style="@style/ProgressStatusItem"
+                    android:text="Submitted"
+                    android:drawableStart="@drawable/ic_dot_green" />
+                <TextView
+                    style="@style/ProgressStatusItem"
+                    android:text="In Progress"
+                    android:drawableStart="@drawable/ic_dot_yellow" />
+                <TextView
+                    style="@style/ProgressStatusItem"
+                    android:text="Awaiting Feedback"
+                    android:drawableStart="@drawable/ic_dot_purple" />
+                <TextView
+                    style="@style/ProgressStatusItem"
+                    android:text="Completed"
+                    android:drawableStart="@drawable/ic_dot_blue" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- ===== Consultant (student-facing info card) ===== -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/consultantCardRoot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="18dp"
+            app:cardUseCompatPadding="true"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:strokeWidth="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/card_neumorphic_background"
+                android:padding="14dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Consultant"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_faded"
+                    android:fontFamily="@font/poppins_medium" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:id="@+id/imgConsultantAvatar"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:src="@drawable/ic_avatar_placeholder"
+                        android:background="@drawable/bg_circle_soft"
+                        android:contentDescription="Avatar" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginStart="12dp">
+
+                        <TextView
+                            android:id="@+id/tvConsultantName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Name"
+                            android:textSize="14sp"
+                            android:textColor="@color/text_dark"
+                            android:fontFamily="@font/poppins_medium" />
+
+                        <TextView
+                            android:id="@+id/tvConsultantAvailability"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Availability"
+                            android:textSize="12sp"
+                            android:textColor="@color/text_faded" />
+                    </LinearLayout>
+
+                    <ImageButton
+                        android:id="@+id/btnChatConsultant"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="Message"
+                        android:src="@drawable/ic_chat"
+                        app:tint="@color/text_dark" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="24dp" />
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Base application theme -->
+    <style name="Base.Theme.CiteWise_Mobile" parent="Theme.Material3.DayNight.NoActionBar" />
+
+    <!-- Main application theme -->
+    <style name="Theme.CiteWise_Mobile" parent="Base.Theme.CiteWise_Mobile">
+        <!-- Apply one-color switch styling globally -->
+        <item name="materialSwitchStyle">@style/CiteWise.Switch.OneColor</item>
+    </style>
+
+</resources>

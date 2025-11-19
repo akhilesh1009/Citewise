@@ -1,0 +1,173 @@
+<resources>
+    <string name="app_name">CiteWise</string>
+
+    <!-- Institution list -->
+    <string-array name="institutions">
+        <item>IIE Varsity College</item>
+        <item>IIE Rosebank College</item>
+        <item>Stellenbosch University</item>
+    </string-array>
+
+    <!-- Languages -->
+    <string-array name="languages">
+        <item>English</item>
+        <item>isiZulu</item>
+    </string-array>
+
+    <string name="login_title">Log In</string>
+    <string name="login_subtitle">Log in to your account</string>
+    <string name="email_or_username">Email or Username</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="remember_me">Remember me</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="btn_login">Log In</string>
+    <string name="login">Log In</string>
+    <string name="or_continue_with">Or continue with</string>
+
+    <!-- Social login -->
+
+    <!-- Sign Up -->
+    <string name="new_user">New User? </string>
+    <string name="new_user_q">New User? </string>
+    <string name="sign_up">Sign Up</string>
+
+
+    <!-- Reset Password -->
+    <string name="reset_password_title">Reset Password</string>
+    <string name="reset_password_subtitle">Enter your email address and we’ll send you a reset link.</string>
+    <string name="reset_via_email">Email</string>
+    <string name="reset_via_sms">SMS</string>
+    <string name="phone_number">Phone number</string>
+    <string name="send_reset_link">Send reset link</string>
+    <string name="send_code">Send code</string>
+    <string name="verification_code">Verification code</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_new_password">Confirm New Password</string>
+    <string name="verify_and_set_password">Verify and Set Password</string>
+    <string name="continue_with_google">CONTINUE WITH GOOGLE</string>
+
+    <string-array name="services_array">
+        <item>Proofreading &amp; Editing</item>
+        <item>Formatting &amp; Referencing</item>
+        <item>Data Analysis Support</item>
+        <item>Research/Methodology Coaching</item>
+        <item>Translation</item>
+    </string-array>
+
+    <string-array name="urgency_array">
+        <item>High</item>
+        <item>Medium</item>
+        <item>Low</item>
+    </string-array>
+
+    <!-- Service Request flow -->
+    <string name="request_service">Request a service</string>
+
+    <!-- Step headers -->
+    <string name="step_1">Step 1</string>
+    <string name="step_2">Step 2</string>
+    <string name="step_3">Step 3</string>
+    <string name="step_4">Step 4</string>
+    <string name="step_done">All set</string>
+
+    <!-- Common CTA -->
+    <string name="next">NEXT</string>
+    <string name="done">DONE</string>
+    <string name="skip_for_now">Skip for now</string>
+
+    <!-- Step 1 -->
+    <string name="select_a_service">Step 1: Select a service</string>
+    <string name="select_service_first">Please select a service</string>
+
+    <!-- Step 2 -->
+    <string name="fill_additional_information">Step 2: Additional information</string>
+    <string name="enter_additional_information">Enter additional information...</string>
+
+    <!-- Step 3 -->
+    <string name="upload_your_documents">Step 3: Upload your documents</string>
+    <string name="document_name">Document name</string>
+    <string name="document_name_hint">Document name</string>
+    <string name="attach_file">Attach file</string>
+    <string name="choose_file">CHOOSE FILE</string>
+    <string name="no_file_selected">No file selected</string>
+    <string name="file_selected">File selected</string>
+    <string name="choose_file_first">Please choose a file to upload</string>
+    <string name="enter_document_name">Please enter a document name</string>
+
+    <!-- Step 4 -->
+    <string name="level_of_urgency">Step 4: Level of urgency</string>
+    <string name="deadline">Deadline</string>
+    <string name="select_a_date">Enter deadline</string>
+    <string name="select_urgency">Select level of urgency</string>
+    <string name="select_deadline">Please select a deadline date</string>
+
+    <!-- Success -->
+    <string name="your_request_submitted">Your request has been submitted</string>
+    <string name="quotation_note">A quotation will be generated after submission.</string>
+    <string name="not_signed_in">User Not Signed In</string>
+    <string name="uploading">Uploading...</string>
+    <string name="my_requests_title_default">No requests</string>
+    <string name="enter_service_title">Enter Service Title</string>
+    <string name="service_title">Service Title</string>
+    <string name="add">add</string>
+    <string name="search">search</string>
+    <string name="more">more</string>
+    <string name="attach_image">attach image</string>
+    <string name="voice">voice</string>
+    <string name="user_dashboard">Hi, Connor!</string>
+    <string name="student_opening_msg">Here’s what’s happening with your assignments today.</string>
+    <string name="my_requests">My Requests</string>
+    <string name="notifications">Notifications</string>
+    <string name="missing_documents">Missing Documents</string>
+    <string name="feedback_recivied">Feedback Recivied</string>
+    <string name="_1_new_message">1 New Message</string>
+    <string name="rate_your_consultant">Rate Your Consultant</string>
+    <string name="status_update">Status Update</string>
+    <string name="open_notification">open_notification</string>
+    <string name="new_chat">New Chat</string>
+    <string name="close">close</string>
+    <string name="search_name">Search Name</string>
+    <string name="frequently_contacted">Frequently Contacted</string>
+    <string name="echannel_messages_name">Messages\n</string>
+    <string name="search_chats">Search Chats</string>
+
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_requests">Requests</string>
+    <string name="title_resources">Resources</string>
+    <string name="title_messages">Messages</string>
+    <string name="title_profile">Profile</string>
+
+    <string name="title_manage_consultants">Manage</string>
+    <string name="title_resource_mgmt">Resources</string>
+    <string name="title_active_tasks">Tasks</string>
+    <string name="navigate">Navigate</string>
+    <string name="profile_picture">profile\n</string>
+    <!-- Consultant -->
+    <string name="loading_name_placeholder">Loading Profile...</string>
+    <string name="loading_expertise_placeholder">Specialization Not Set</string>
+    <string name="availability_placeholder">Checking Status...</string>
+    <string name="loading_email_placeholder">erinchis124@gmail.com</string>
+
+    <string name="previous_month">Previous month</string>
+    <string name="next_month">Next month</string>
+    <string name="current_month">Month</string>
+    <string name="Monday">Mon</string>
+    <string name="Tuesday">Tue</string>
+    <string name="Wednesday">Wed</string>
+    <string name="Thursday">Thu</string>
+    <string name="Friday">Fri</string>
+    <string name="Saturday">Sat</string>
+    <string name="Sunday">Sun</string>
+    <string name="reject">reject</string>
+    <string name="accept">accept</string>
+    <string name="no_related_contacts">No related contacts</string>
+    <string name="students">students</string>
+    <string name="consultants">consultants</string>
+    <string name="all">all</string>
+    <string name="no_results_found">No results found</string>
+    <string name="send">send</string>
+
+    <string name="channel_messages_name">messages</string>
+    <string name="channel_messages_desc">Chat message notifications</string>
+</resources>
